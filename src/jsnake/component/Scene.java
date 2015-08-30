@@ -22,7 +22,6 @@ public class Scene extends JPanel implements Renderer, Animated {
 		height = 50;
 		basicSize = 15;
 		this.setPreferredSize(new Dimension(width * basicSize, height * basicSize));
-		reset();
 	}
 		
 	private void drawComponents(Graphics gr) {
@@ -65,10 +64,6 @@ public class Scene extends JPanel implements Renderer, Animated {
 	}
 
 	// Animated methods
-
-	public void reset() {
-		// not implemented yet
-	}
 
 	public void step() {
 		this.repaint();

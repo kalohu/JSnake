@@ -10,17 +10,18 @@ import jsnake.interfaces.Animated;
 
 public class Snake implements Controlled, Rendered, Animated {
 	
-	private Renderer rendererComponent;
-	
 	private ArrayList<SnakePiece> snake;
 	private int horizontalDirection;
 	private int verticalDirection;
 	private SnakeTimer snakeTimer;
 	
 	public Snake(Renderer rendererComponent) {
-		this.rendererComponent = rendererComponent;
 		snake = new ArrayList<SnakePiece>();
-		reset();
+		
+		int width = (int) rendererComponent.getRendererSize().getWidth();
+		int height = (int) rendererComponent.getRendererSize().getHeight();
+		int basicSize = rendererComponent.getBasicSize();
+		generate(width, height, basicSize);
 	}
 		
 	private boolean isPossibleNewDirection(int horizontalDirection, int verticalDirection) {
@@ -77,13 +78,6 @@ public class Snake implements Controlled, Rendered, Animated {
 	}
 
 	// Animated methods
-
-	public void reset() {
-		int width = (int) rendererComponent.getRendererSize().getWidth();
-		int height = (int) rendererComponent.getRendererSize().getHeight();
-		int basicSize = rendererComponent.getBasicSize();
-		generate(width, height, basicSize);
-	}
 
 	public void step() {
 		for (int i = snake.size() - 1; i > 0; i--) {

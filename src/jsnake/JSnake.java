@@ -2,13 +2,6 @@ package jsnake;
 
 import jsnake.gui.MainWindow;
 import jsnake.gui.MainMenuBar;
-import jsnake.component.Score;
-import jsnake.component.Background;
-import jsnake.component.Snake;
-import jsnake.component.Scene;
-import jsnake.component.Food;
-import jsnake.interfaces.Animated;
-import jsnake.interfaces.Rendered;
 
 public class JSnake {
 

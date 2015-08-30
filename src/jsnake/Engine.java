@@ -24,12 +24,6 @@ public class Engine implements Animator {
 			animatedComponent.checkCollision(controlledX, controlledY);
 		}
 	}
-	
-	public void resetAnimatedComponents() {
-		for (Animated animatedComponent : animatedComponents) {
-			animatedComponent.reset();
-		}
-	}
 
 	public void addAnimatedComponents(Animated[] animatedComponents) {
 		this.animatedComponents = animatedComponents;
@@ -39,6 +33,7 @@ public class Engine implements Animator {
 		for (Animated animatedComponent : animatedComponents) {
 			if (animatedComponent instanceof Controlled) {
 				controlledComponent = (Controlled)animatedComponent;
+				break;
 			}
 		}
 

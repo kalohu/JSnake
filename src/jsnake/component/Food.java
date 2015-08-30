@@ -22,7 +22,11 @@ public class Food implements Animated, Rendered {
 		this.rendererComponent = rendererComponent;
 		this.snake = snake;
 		this.score = score;
-		reset();
+
+		int width = (int) rendererComponent.getRendererSize().getWidth();
+		int height = (int) rendererComponent.getRendererSize().getHeight();
+		int basicSize = rendererComponent.getBasicSize();
+		generate(width, height, basicSize);
 	}
 	
 	// Rendered methods
@@ -51,13 +55,6 @@ public class Food implements Animated, Rendered {
 	}
 	
 	// Animated methods
-
-	public void reset() {
-		int width = (int) rendererComponent.getRendererSize().getWidth();
-		int height = (int) rendererComponent.getRendererSize().getHeight();
-		int basicSize = rendererComponent.getBasicSize();
-		generate(width, height, basicSize);
-	}
 
 	public void step() {
 		// not implemented yet

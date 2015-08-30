@@ -1,6 +1,5 @@
 package jsnake.gui;
 
-import jsnake.SnakeTimer;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -55,7 +54,6 @@ public class MainMenuBar extends JMenuBar implements ActionListener {
 	public void actionPerformed(ActionEvent actionEvent) {
 		if (actionEvent.getSource() == startMenuItem) {
 			game.newGame();
-			//animator.resetAnimatedComponents();
 			iterator.startStep();
 		}
 		else if (actionEvent.getSource() == stopMenuItem) {

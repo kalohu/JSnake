@@ -9,8 +9,6 @@ import jsnake.component.Score;
 import jsnake.component.Snake;
 import jsnake.interfaces.Animated;
 import jsnake.interfaces.Rendered;
-import jsnake.interfaces.Controller;
-import jsnake.interfaces.Renderer;
 
 public class Game {
 	

@@ -10,7 +10,7 @@ public class Score implements Rendered, Animated {
 	private int score;
 	
 	public Score() {
-		reset();
+		setScore(3);
 	}
 			
 	public int getScore() {
@@ -38,10 +38,6 @@ public class Score implements Rendered, Animated {
 	}
 
 	// Animated methods
-	
-	public void reset() {
-		setScore(3);
-	}
 
 	public void step() {
 		// not implemented yet

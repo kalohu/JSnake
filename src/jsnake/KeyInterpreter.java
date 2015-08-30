@@ -12,8 +12,8 @@ public class KeyInterpreter implements Controller, Animated {
 	
 	public KeyInterpreter(Controlled controlledComponent) {
 		this.controlledComponent = controlledComponent;
-		
-		reset();
+
+		setLeftDirection();
 	}
 	
 	// Controller methods
@@ -54,10 +54,6 @@ public class KeyInterpreter implements Controller, Animated {
 	}
 	
 	// Animated methods
-
-	public void reset() {
-		setLeftDirection();
-	}
 
 	public void step() {
 		controlledComponent.setDirection(horizontalDirection, verticalDirection);

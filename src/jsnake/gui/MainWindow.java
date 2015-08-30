@@ -1,8 +1,6 @@
 package jsnake.gui;
 
 import java.awt.Container;
-import jsnake.KeyInterpreter;
-import jsnake.component.Scene;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.event.KeyEvent;
@@ -22,7 +20,6 @@ public class MainWindow extends JFrame implements KeyListener {
 		
 		this.addKeyListener(this);
 
-		pack();
 		setVisible(true);
 	}
 	
