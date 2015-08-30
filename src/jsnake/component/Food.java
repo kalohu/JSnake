@@ -23,26 +23,26 @@ public class Food implements Animated, Rendered {
 		this.snake = snake;
 		this.score = score;
 
-		int width = (int) rendererComponent.getRendererSize().getWidth();
-		int height = (int) rendererComponent.getRendererSize().getHeight();
-		int basicSize = rendererComponent.getBasicSize();
-		generate(width, height, basicSize);
+		init(rendererComponent);
 	}
 	
 	// Rendered methods
 	
-	public void generate(int rendererWidth, int rendererHeight, int basicSize) {
+	public void init(Renderer rendererComponent) {
+		int width = (int) rendererComponent.getRendererSize().getWidth();
+		int height = (int) rendererComponent.getRendererSize().getHeight();
+
 		int x;
 		int y;
 		
 		Random rand = new Random();
 
-		x = rand.nextInt(rendererWidth - 3) + 1;
-		y = rand.nextInt(rendererHeight - 7) + 5;
+		x = rand.nextInt(width - 3) + 1;
+		y = rand.nextInt(height - 7) + 5;
 		
 		while (x == this.x && y == this.y) {
-			x = rand.nextInt(rendererWidth - 3) + 1;
-			y = rand.nextInt(rendererHeight - 7) + 5;
+			x = rand.nextInt(width - 3) + 1;
+			y = rand.nextInt(height - 7) + 5;
 		}
 		
 		this.x = x;
@@ -62,10 +62,10 @@ public class Food implements Animated, Rendered {
 
 	public void checkCollision(int controlledX, int controlledY) {
 		if (controlledX == x && controlledY == y) {
-			Dimension rendererSize = rendererComponent.getRendererSize();
+//			Dimension rendererSize = rendererComponent.getRendererSize();
 			int basicSize = rendererComponent.getBasicSize();
 			score.addScore();
-			generate((int)rendererSize.getWidth(), (int)rendererSize.getHeight(), basicSize);
+			init(rendererComponent);
 			snake.feed(basicSize);
 		}
 	}

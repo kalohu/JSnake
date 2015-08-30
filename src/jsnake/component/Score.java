@@ -27,10 +27,6 @@ public class Score implements Rendered, Animated {
 	
 	// Rendered methods
 	
-	public void generate(int rendererWidth, int rendererHeight, int basicSize) {
-		// not implemented yet
-	}
-
 	public void draw(Graphics gr, int renderedWidth, int renderedHeight, int basicSize) {
 		String scoreText = "Score: " + getScore();
 		gr.setColor(Color.blue);

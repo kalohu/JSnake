@@ -8,10 +8,6 @@ public class Background implements Rendered {
 	
 	// Rendered methods
 
-	public void generate(int rendererWidth, int rendererHeight, int basicSize) {
-		// not implemented yet
-	}
-
 	public void draw(Graphics gr, int renderedWidth, int renderedHeight, int basicSize) {
 		gr.setColor(Color.white);
 		gr.fillRect(0, 0, renderedWidth * basicSize, renderedHeight * basicSize);

@@ -18,12 +18,20 @@ public class Snake implements Controlled, Rendered, Animated {
 	public Snake(Renderer rendererComponent) {
 		snake = new ArrayList<SnakePiece>();
 		
+		init(rendererComponent);
+	}
+
+	public void init(Renderer rendererComponent) {
 		int width = (int) rendererComponent.getRendererSize().getWidth();
 		int height = (int) rendererComponent.getRendererSize().getHeight();
 		int basicSize = rendererComponent.getBasicSize();
-		generate(width, height, basicSize);
+
+		snake.clear();
+		for (int i = 0; i < 3; i++) {
+			snake.add(new SnakePiece(width / 2 + i, height / 2, basicSize));
+		}
 	}
-		
+
 	private boolean isPossibleNewDirection(int horizontalDirection, int verticalDirection) {
 		int snakeX = snake.get(1).getX() - snake.get(2).getX();
 		int snakeY = snake.get(1).getY() - snake.get(2).getY();
@@ -57,13 +65,6 @@ public class Snake implements Controlled, Rendered, Animated {
 
 	// Rendered methods
 	
-	public void generate(int rendererWidth, int rendererHeight, int basicSize) {
-		snake.clear();
-		for (int i = 0; i < 3; i++) {
-			snake.add(new SnakePiece(rendererWidth / 2 + i,rendererHeight / 2, basicSize));
-		}
-	}
-
 	public void draw(Graphics gr, int renderedWidth, int renderedHeight, int basicSize) {
 		boolean sneakHead = true;
 		for (SnakePiece snakePiece : snake) {
