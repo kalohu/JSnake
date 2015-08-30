@@ -17,14 +17,12 @@ public class Snake implements Controlled, Rendered, Animated {
 	private int verticalDirection;
 	private SnakeTimer snakeTimer;
 	
-	public Snake() {
-		snake = new ArrayList<SnakePiece>();
-	}
-	
-	public void addRendererReference(Renderer rendererComponent) {
+	public Snake(Renderer rendererComponent) {
 		this.rendererComponent = rendererComponent;
+		snake = new ArrayList<SnakePiece>();
+		reset();
 	}
-	
+		
 	private boolean isPossibleNewDirection(int horizontalDirection, int verticalDirection) {
 		int snakeX = snake.get(1).getX() - snake.get(2).getX();
 		int snakeY = snake.get(1).getY() - snake.get(2).getY();

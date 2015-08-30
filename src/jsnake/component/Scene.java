@@ -3,8 +3,6 @@ package jsnake.component;
 import javax.swing.JPanel;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import jsnake.component.Score;
-import jsnake.KeyInterpreter;
 import jsnake.SnakeTimer;
 import jsnake.interfaces.Renderer;
 import jsnake.interfaces.Rendered;
@@ -19,11 +17,12 @@ public class Scene extends JPanel implements Renderer, Animated {
 	private int height;
 	private int basicSize;
 	
-	public Scene(Score score, KeyInterpreter keyInterpreter) {
+	public Scene() {
 		width = 50;
 		height = 50;
 		basicSize = 15;
 		this.setPreferredSize(new Dimension(width * basicSize, height * basicSize));
+		reset();
 	}
 		
 	private void drawComponents(Graphics gr) {

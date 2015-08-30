@@ -18,13 +18,11 @@ public class Food implements Animated, Rendered {
 	private int x;
 	private int y;
 	
-	public Food(Snake snake, Score score) {
+	public Food(Renderer rendererComponent, Snake snake, Score score) {
+		this.rendererComponent = rendererComponent;
 		this.snake = snake;
 		this.score = score;
-	}
-
-	public void addRendererReference(Renderer rendererComponent) {
-		this.rendererComponent = rendererComponent;
+		reset();
 	}
 	
 	// Rendered methods

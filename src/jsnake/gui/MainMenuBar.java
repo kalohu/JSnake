@@ -6,12 +6,15 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import jsnake.Game;
 import jsnake.interfaces.Animator;
+import jsnake.interfaces.Iterator;
 
 public class MainMenuBar extends JMenuBar implements ActionListener {
 	
 	private Animator animator;
-	private SnakeTimer snakeTimer;
+	private Iterator iterator;
+	private Game game;
 
 	private JMenu fileMenu;
 	private JMenuItem exitMenuItem;
@@ -19,10 +22,7 @@ public class MainMenuBar extends JMenuBar implements ActionListener {
 	private JMenuItem startMenuItem;
 	private JMenuItem stopMenuItem;
 
-	public MainMenuBar(Animator animator, SnakeTimer snakeTimer) {
-		this.animator = animator;
-		this.snakeTimer = snakeTimer;
-		
+	public MainMenuBar() {
 		this.add(createFileMenu());
 		this.add(createGameMenu());
 	}
@@ -54,15 +54,28 @@ public class MainMenuBar extends JMenuBar implements ActionListener {
 	
 	public void actionPerformed(ActionEvent actionEvent) {
 		if (actionEvent.getSource() == startMenuItem) {
-			animator.resetAnimatedComponents();
-			snakeTimer.startStep();
+			game.newGame();
+			//animator.resetAnimatedComponents();
+			iterator.startStep();
 		}
 		else if (actionEvent.getSource() == stopMenuItem) {
-			snakeTimer.stopStep();
+			iterator.stopStep();
 		}
 		else if (actionEvent.getSource() == exitMenuItem) {
 			System.exit(0);
 		}
+	}
+	
+	public void addAnimator(Animator animator) {
+		this.animator = animator;
+	}
+
+	public void addIterator(Iterator iterator) {
+		this.iterator = iterator;
+	}
+	
+	public void addGame(Game game) {
+		this.game = game;
 	}
 
 }

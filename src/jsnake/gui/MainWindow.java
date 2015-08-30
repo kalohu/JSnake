@@ -1,22 +1,24 @@
 package jsnake.gui;
 
+import java.awt.Container;
 import jsnake.KeyInterpreter;
 import jsnake.component.Scene;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.BorderLayout;
+import jsnake.interfaces.Controller;
+import jsnake.interfaces.Renderer;
 
 public class MainWindow extends JFrame implements KeyListener {
 	
-	private KeyInterpreter keyInterpreter;
+	private Controller controller;
+	private Container contentPane;
 	
-	public MainWindow(MainMenuBar mainMenuBar, KeyInterpreter keyInterpreter, Scene scene) {
-		this.keyInterpreter = keyInterpreter;
-		
+	public MainWindow(MainMenuBar mainMenuBar) {
 		initMainWindow();
 		createMainMenuBar(mainMenuBar);
-		addScene(scene);
 		
 		this.addKeyListener(this);
 
@@ -30,14 +32,22 @@ public class MainWindow extends JFrame implements KeyListener {
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout());
 		setResizable(false);
+		contentPane = getContentPane();
+		contentPane.setLayout(new BorderLayout());
 	}
 	
 	private void createMainMenuBar(MainMenuBar mainMenuBar) {
 		this.setJMenuBar(mainMenuBar);		
 	}
 	
-	private void addScene(Scene scene) {
-		this.add(scene, "Center");
+	public void addController(Controller controller) {
+		this.controller = controller;
+	}
+	
+	public void addRenderer(Renderer renderer) {
+		contentPane.removeAll();
+		contentPane.add((JPanel)renderer, "Center");
+		pack();
 	}
 
 	public void keyReleased(KeyEvent keyEvent) {
@@ -45,7 +55,7 @@ public class MainWindow extends JFrame implements KeyListener {
 	}
 	
 	public void keyPressed(KeyEvent keyEvent) {
-		keyInterpreter.keyEvaluate(keyEvent.getKeyCode());
+		controller.keyEvaluate(keyEvent.getKeyCode());
 	}
 
 	public void keyTyped(KeyEvent keyEvent) {

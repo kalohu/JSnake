@@ -8,6 +8,10 @@ import jsnake.interfaces.Animated;
 public class Score implements Rendered, Animated {
 	
 	private int score;
+	
+	public Score() {
+		reset();
+	}
 			
 	public int getScore() {
 		return score;
