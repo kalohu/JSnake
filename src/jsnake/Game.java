@@ -40,12 +40,17 @@ public class Game {
 		KeyInterpreter keyInterpreter = new KeyInterpreter(snake);
 
 		// Add components that implement the Rendered interface
-		Rendered[] renderedComponents = {background, score, snake, food};
-		scene.addRenderedComponents(renderedComponents);
+		scene.addRenderedComponent(background);
+		scene.addRenderedComponent(score);
+		scene.addRenderedComponent(snake);
+		scene.addRenderedComponent(food);
 		
 		// Add components that implement the Animated interface
-		Animated[] animatedComponents = {keyInterpreter, snake, food, score, scene};
-		engine.addAnimatedComponents(animatedComponents);
+		engine.addAnimatedComponent(keyInterpreter);
+		engine.addAnimatedComponent(snake);
+		engine.addAnimatedComponent(food);
+		engine.addAnimatedComponent(score);
+		engine.addAnimatedComponent(scene);
 
 		// Add references here when it is not possible at the creating period
 		snake.addSnakeTimerReference(snakeTimer);

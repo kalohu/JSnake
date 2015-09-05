@@ -4,7 +4,7 @@ import java.awt.Dimension;
 
 public interface Renderer {
 	
-	void addRenderedComponents(Rendered[] renderedComponents);
+	void addRenderedComponent(Rendered renderedComponent);
 	Dimension getRendererSize();
 	void setRendererSize(int width, int height);
 	int getBasicSize();

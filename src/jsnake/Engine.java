@@ -1,13 +1,19 @@
 package jsnake;
 
+import java.util.ArrayList;
+
 import jsnake.interfaces.Animator;
 import jsnake.interfaces.Animated;
 import jsnake.interfaces.Controlled;
 
 public class Engine implements Animator {
 	
-	private Animated[] animatedComponents;
+	private ArrayList<Animated> animatedComponents;
 	private Controlled controlledComponent;
+	
+	public Engine() {
+		animatedComponents = new ArrayList<Animated>();
+	}
 
 	// Animator methods
 		
@@ -25,9 +31,12 @@ public class Engine implements Animator {
 		}
 	}
 
-	public void addAnimatedComponents(Animated[] animatedComponents) {
-		this.animatedComponents = animatedComponents;
-
+	public void addAnimatedComponent(Animated animatedComponent) {
+		animatedComponents.add(animatedComponent);
+		selectControlledComponent();
+	}
+	
+	private void selectControlledComponent() {
 		controlledComponent = null;
 
 		for (Animated animatedComponent : animatedComponents) {
@@ -35,12 +44,7 @@ public class Engine implements Animator {
 				controlledComponent = (Controlled)animatedComponent;
 				break;
 			}
-		}
-
-		if (controlledComponent == null) {
-			System.out.println("Controlled object has to be implemented!");
-			System.exit(0);
-		}
+		}		
 	}
 
 }
