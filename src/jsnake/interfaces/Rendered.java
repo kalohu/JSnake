@@ -4,6 +4,6 @@ import java.awt.Graphics;
 
 public interface Rendered {
 	
-	public void draw(Graphics gr, int renderedWidth, int renderedHeight, int basicSize);
+	void draw(Graphics gr, int renderedWidth, int renderedHeight, int basicSize);
 
 }
