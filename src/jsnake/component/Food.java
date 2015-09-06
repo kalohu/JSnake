@@ -2,18 +2,23 @@ package jsnake.component;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Random;
-import java.awt.Dimension;
+
+import jsnake.CollisionDetector;
 import jsnake.component.Score;
 import jsnake.interfaces.Animated;
+import jsnake.interfaces.Collided;
 import jsnake.interfaces.Rendered;
 import jsnake.interfaces.Renderer;
 
-public class Food implements Animated, Rendered {
+public class Food implements Animated, Rendered, Collided {
 	
 	private Renderer rendererComponent;
 	private Snake snake;
 	private Score score;
+	private CollisionDetector collisionDetector;
 	
 	private int x;
 	private int y;
@@ -25,7 +30,30 @@ public class Food implements Animated, Rendered {
 
 		init(rendererComponent);
 	}
+
+	// Collided methods
 	
+	public void addCollisionDetector(CollisionDetector collisionDetector) {
+		this.collisionDetector = collisionDetector;
+	}
+	
+	public void checkCollision(ArrayList<Point> callerComponentCoords, Collided callerComponent) {
+		ArrayList<Point> foodCoords = new ArrayList<Point>();
+		foodCoords.add(new Point(x, y));
+		if (collisionDetector.checkCollision(callerComponentCoords, foodCoords)) {
+			int basicSize = rendererComponent.getBasicSize();
+			score.addScore();
+			init(rendererComponent);
+			snake.feed(basicSize);			
+		}
+	}
+	
+	public void checkCollision(Collided collidedComponent) {
+		ArrayList<Point> foodCoords = new ArrayList<Point>();
+		foodCoords.add(new Point(x, y));
+		collidedComponent.checkCollision(foodCoords, this);
+	}
+
 	// Rendered methods
 	
 	public void init(Renderer rendererComponent) {
@@ -58,16 +86,6 @@ public class Food implements Animated, Rendered {
 
 	public void step() {
 		// not implemented yet
-	}
-
-	public void checkCollision(int controlledX, int controlledY) {
-		if (controlledX == x && controlledY == y) {
-//			Dimension rendererSize = rendererComponent.getRendererSize();
-			int basicSize = rendererComponent.getBasicSize();
-			score.addScore();
-			init(rendererComponent);
-			snake.feed(basicSize);
-		}
 	}
 
 }

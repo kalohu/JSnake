@@ -7,8 +7,6 @@ import jsnake.component.Food;
 import jsnake.component.Scene;
 import jsnake.component.Score;
 import jsnake.component.Snake;
-import jsnake.interfaces.Animated;
-import jsnake.interfaces.Rendered;
 
 public class Game {
 	
@@ -51,6 +49,15 @@ public class Game {
 		engine.addAnimatedComponent(food);
 		engine.addAnimatedComponent(score);
 		engine.addAnimatedComponent(scene);
+		
+		engine.addControlledComponent(snake);
+		
+		engine.addCollidedComponent(snake);
+		engine.addCollidedComponent(food);
+
+		CollisionDetector collisionDetector = new CollisionDetector();
+		snake.addCollisionDetector(collisionDetector);
+		food.addCollisionDetector(collisionDetector);
 
 		// Add references here when it is not possible at the creating period
 		snake.addSnakeTimerReference(snakeTimer);

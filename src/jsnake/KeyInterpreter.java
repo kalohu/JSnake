@@ -59,8 +59,4 @@ public class KeyInterpreter implements Controller, Animated {
 		controlledComponent.setDirection(horizontalDirection, verticalDirection);
 	}
 	
-	public void checkCollision(int controlledX, int controlledY) {
-		// not implemented yet
-	}
-
 }

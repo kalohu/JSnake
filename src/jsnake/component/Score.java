@@ -39,7 +39,4 @@ public class Score implements Rendered, Animated {
 		// not implemented yet
 	}
 
-	public void checkCollision(int controlledX, int controlledY) {
-		// not implemented yet
-	}
 }

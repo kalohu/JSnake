@@ -2,18 +2,22 @@ package jsnake.component;
 
 import java.util.ArrayList;
 import java.awt.Graphics;
+import java.awt.Point;
 import jsnake.SnakeTimer;
+import jsnake.CollisionDetector;
 import jsnake.interfaces.Renderer;
 import jsnake.interfaces.Controlled;
 import jsnake.interfaces.Rendered;
 import jsnake.interfaces.Animated;
+import jsnake.interfaces.Collided;
 
-public class Snake implements Controlled, Rendered, Animated {
+public class Snake implements Controlled, Rendered, Animated, Collided {
 	
 	private ArrayList<SnakePiece> snake;
 	private int horizontalDirection;
 	private int verticalDirection;
 	private SnakeTimer snakeTimer;
+	private CollisionDetector collisionDetector;
 	
 	public Snake(Renderer rendererComponent) {
 		snake = new ArrayList<SnakePiece>();
@@ -46,6 +50,31 @@ public class Snake implements Controlled, Rendered, Animated {
 		
 	public void addSnakeTimerReference(SnakeTimer snakeTimer) {
 		this.snakeTimer = snakeTimer;
+	}
+	
+	// Collided methods
+	
+	public void addCollisionDetector(CollisionDetector collisionDetector) {
+		this.collisionDetector = collisionDetector;
+	}
+	
+	public void checkCollision(ArrayList<Point> callerComponentCoords, Collided callerComponent) {
+		ArrayList<Point> snakeCoords = new ArrayList<Point>();
+		for (SnakePiece snakePiece : snake) {
+			snakeCoords.add(new Point(snakePiece.getX(), snakePiece.getY()));
+		}
+		if (callerComponent instanceof Snake) {
+			snakeCoords.remove(0);
+		}
+		if (collisionDetector.checkCollision(callerComponentCoords, snakeCoords)) {
+			snakeTimer.stopStep();
+		}
+	}
+	
+	public void checkCollision(Collided collidedComponent) {
+		ArrayList<Point> snakeCoords = new ArrayList<Point>();
+		snakeCoords.add(new Point(snake.get(0).getX(), snake.get(0).getY()));
+		collidedComponent.checkCollision(snakeCoords, this);
 	}
 	
 	// Controlled methods
@@ -95,18 +124,4 @@ public class Snake implements Controlled, Rendered, Animated {
 		}
 	}
 	
-	public void checkCollision(int controlledX, int controlledY) {
-		boolean sneakHead = true;
-		for (SnakePiece snakePiece : snake) {
-			if (sneakHead) {
-				sneakHead = false;
-			}
-			else {
-				if (controlledX == snakePiece.getX() && controlledY == snakePiece.getY()) {
-					snakeTimer.stopStep();
-				}
-			}
-		}
-	}
-
 }

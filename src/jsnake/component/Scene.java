@@ -72,11 +72,4 @@ public class Scene extends JPanel implements Renderer, Animated {
 		this.repaint();
 	}
 
-	public void checkCollision(int controlledX, int controlledY) {
-		if (controlledX < 1 || controlledX > width - 2 ||
-			controlledY < 5 || controlledY > width - 2) {
-			snakeTimer.stopStep();
-		}
-	}
-
 }
