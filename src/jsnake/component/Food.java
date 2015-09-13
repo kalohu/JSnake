@@ -8,24 +8,22 @@ import java.util.Random;
 
 import jsnake.CollisionDetector;
 import jsnake.component.Score;
-import jsnake.interfaces.Animated;
 import jsnake.interfaces.Collided;
 import jsnake.interfaces.Rendered;
 import jsnake.interfaces.Renderer;
+import jsnake.interfaces.Controlled;
 
-public class Food implements Animated, Rendered, Collided {
+public class Food implements Rendered, Collided {
 	
 	private Renderer rendererComponent;
-	private Snake snake;
 	private Score score;
 	private CollisionDetector collisionDetector;
 	
 	private int x;
 	private int y;
 	
-	public Food(Renderer rendererComponent, Snake snake, Score score) {
+	public Food(Renderer rendererComponent, SnakeHead snakeHead, Score score) {
 		this.rendererComponent = rendererComponent;
-		this.snake = snake;
 		this.score = score;
 
 		init(rendererComponent);
@@ -41,10 +39,12 @@ public class Food implements Animated, Rendered, Collided {
 		ArrayList<Point> foodCoords = new ArrayList<Point>();
 		foodCoords.add(new Point(x, y));
 		if (collisionDetector.checkCollision(callerComponentCoords, foodCoords)) {
-			int basicSize = rendererComponent.getBasicSize();
-			score.addScore();
-			init(rendererComponent);
-			snake.feed(basicSize);			
+			if (callerComponent instanceof Controlled) {
+				int basicSize = rendererComponent.getBasicSize();
+				score.addScore();
+				init(rendererComponent);
+				((Controlled)callerComponent).feed(basicSize);
+			}
 		}
 	}
 	
@@ -82,10 +82,4 @@ public class Food implements Animated, Rendered, Collided {
 		gr.fill3DRect(x * basicSize, y * basicSize, basicSize, basicSize, true);
 	}
 	
-	// Animated methods
-
-	public void step() {
-		// not implemented yet
-	}
-
 }

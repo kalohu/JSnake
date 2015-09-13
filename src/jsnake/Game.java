@@ -6,7 +6,8 @@ import jsnake.component.Background;
 import jsnake.component.Food;
 import jsnake.component.Scene;
 import jsnake.component.Score;
-import jsnake.component.Snake;
+import jsnake.component.SnakeHead;
+import jsnake.component.SnakeTail;
 
 public class Game {
 	
@@ -30,38 +31,39 @@ public class Game {
 		// Graphic components
 		Score score = new Score();
 		Background background = new Background();
-		Snake snake = new Snake(scene); // this is the object that implements the Controlled interface
-		Food food = new Food(scene, snake, score);
+		SnakeTail snakeTail = new SnakeTail(scene);
+		SnakeHead snakeHead = new SnakeHead(scene, snakeTail); // this is the object that implements the Controlled interface
+		Food food = new Food(scene, snakeHead, score);
 		
 		// This object get and forward the direction to the object that implements the Controlled interface
 		// This is the object that implements the Controller interface
-		KeyInterpreter keyInterpreter = new KeyInterpreter(snake);
+		KeyInterpreter keyInterpreter = new KeyInterpreter(snakeHead);
 
 		// Add components that implement the Rendered interface
 		scene.addRenderedComponent(background);
 		scene.addRenderedComponent(score);
-		scene.addRenderedComponent(snake);
+		scene.addRenderedComponent(snakeHead);
+		scene.addRenderedComponent(snakeTail);
 		scene.addRenderedComponent(food);
 		
 		// Add components that implement the Animated interface
 		engine.addAnimatedComponent(keyInterpreter);
-		engine.addAnimatedComponent(snake);
-		engine.addAnimatedComponent(food);
-		engine.addAnimatedComponent(score);
+		engine.addAnimatedComponent(snakeHead);
 		engine.addAnimatedComponent(scene);
 		
-		engine.addControlledComponent(snake);
+		engine.addControlledComponent(snakeHead);
 		
-		engine.addCollidedComponent(snake);
 		engine.addCollidedComponent(food);
+		engine.addCollidedComponent(snakeTail);
 
 		CollisionDetector collisionDetector = new CollisionDetector();
-		snake.addCollisionDetector(collisionDetector);
+		snakeHead.addCollisionDetector(collisionDetector);
 		food.addCollisionDetector(collisionDetector);
+		snakeTail.addCollisionDetector(collisionDetector);
 
 		// Add references here when it is not possible at the creating period
-		snake.addSnakeTimerReference(snakeTimer);
-		scene.addSnakeTimerReference(snakeTimer);
+		snakeHead.addSnakeTimerReference(snakeTimer);
+		snakeTail.addSnakeTimerReference(snakeTimer);
 		
 		mainWindow.addController(keyInterpreter);
 		mainWindow.addRenderer(scene);

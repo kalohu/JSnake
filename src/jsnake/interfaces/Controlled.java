@@ -5,5 +5,6 @@ public interface Controlled {
 	int getX();
 	int getY();
 	void setDirection(int horizontalDirection, int verticalDirection);
+	void feed(int basicSize);
 
 }

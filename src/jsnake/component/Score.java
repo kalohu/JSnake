@@ -3,9 +3,8 @@ package jsnake.component;
 import java.awt.Color;
 import java.awt.Graphics;
 import jsnake.interfaces.Rendered;
-import jsnake.interfaces.Animated;
 
-public class Score implements Rendered, Animated {
+public class Score implements Rendered {
 	
 	private int score;
 	
@@ -31,12 +30,6 @@ public class Score implements Rendered, Animated {
 		String scoreText = "Score: " + getScore();
 		gr.setColor(Color.blue);
 		gr.drawString(scoreText, (renderedWidth / 2 - scoreText.length() / 2) * basicSize, 3 * basicSize);
-	}
-
-	// Animated methods
-
-	public void step() {
-		// not implemented yet
 	}
 
 }

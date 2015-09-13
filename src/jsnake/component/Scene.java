@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import jsnake.SnakeTimer;
 import jsnake.interfaces.Renderer;
 import jsnake.interfaces.Rendered;
 import jsnake.interfaces.Animated;
@@ -13,7 +12,6 @@ import jsnake.interfaces.Animated;
 public class Scene extends JPanel implements Renderer, Animated {
 	
 	private ArrayList<Rendered> renderedComponents;
-	private SnakeTimer snakeTimer;
 	
 	private int width;
 	private int height;
@@ -35,10 +33,6 @@ public class Scene extends JPanel implements Renderer, Animated {
 
 	protected void paintComponent(Graphics gr) {
 		drawComponents(gr);
-	}
-		
-	public void addSnakeTimerReference(SnakeTimer snakeTimer) {
-		this.snakeTimer = snakeTimer;
 	}
 	
 	// Renderer methods
