@@ -13,10 +13,12 @@ public class SnakeTimer extends Timer implements Iterator {
 	
 	// Iterator methods
 
+	@Override
 	public void startStep() {
 		start();
 	}
 	
+	@Override
 	public void stopStep() {
 		stop();
 	}

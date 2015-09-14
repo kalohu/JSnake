@@ -31,30 +31,36 @@ public class Scene extends JPanel implements Renderer, Animated {
 		}
 	}
 
+	@Override
 	protected void paintComponent(Graphics gr) {
 		drawComponents(gr);
 	}
 	
 	// Renderer methods
 
+	@Override
 	public void addRenderedComponent(Rendered renderedComponent) {
 		renderedComponents.add(renderedComponent);
 	}
 		
+	@Override
 	public Dimension getRendererSize() {
 		return new Dimension(width, height);
 	}
 			
+	@Override
 	public void setRendererSize(int width, int height) {
 		this.width = width;
 		this.height = height;
 		this.setPreferredSize(new Dimension(width * basicSize, height * basicSize));
 	}
 	
+	@Override
 	public int getBasicSize() {
 		return basicSize;
 	}
 
+	@Override
 	public void setBasicSize(int size) {
 		this.basicSize = size;
 		this.setPreferredSize(new Dimension(width * basicSize, height * basicSize));
@@ -62,6 +68,7 @@ public class Scene extends JPanel implements Renderer, Animated {
 
 	// Animated methods
 
+	@Override
 	public void step() {
 		this.repaint();
 	}

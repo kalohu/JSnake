@@ -44,10 +44,12 @@ public class SnakeTail implements Rendered, Collided {
 
 	// Collided methods
 	
+	@Override
 	public void addCollisionDetector(CollisionDetector collisionDetector) {
 		this.collisionDetector = collisionDetector;
 	}
 	
+	@Override
 	public void checkCollision(ArrayList<Point> callerComponentCoords, Collided callerComponent) {
 		ArrayList<Point> snakeTailCoords = new ArrayList<Point>();
 		for (SnakePiece snakePiece : snakeTail) {
@@ -58,6 +60,7 @@ public class SnakeTail implements Rendered, Collided {
 		}
 	}
 	
+	@Override
 	public void checkCollision(Collided collidedComponent) {
 		ArrayList<Point> snakeTailCoords = new ArrayList<Point>();
 		for (SnakePiece snakePiece : snakeTail) {
@@ -68,6 +71,7 @@ public class SnakeTail implements Rendered, Collided {
 
 	// Rendered methods
 	
+	@Override
 	public void draw(Graphics gr, int renderedWidth, int renderedHeight, int basicSize) {
 		for (SnakePiece snakePiece : snakeTail) {
 			snakePiece.drawBody(gr);

@@ -20,7 +20,8 @@ public class Engine implements Animator {
 	}
 
 	// Animator methods
-		
+
+	@Override
 	public void step() {
 		for (Animated animatedComponent : animatedComponents) {
 			animatedComponent.step();
@@ -33,14 +34,17 @@ public class Engine implements Animator {
 		}
 	}
 
+	@Override
 	public void addControlledComponent(Controlled controlledComponent) {
 		controlledComponents.add(controlledComponent);
 	}
 
+	@Override
 	public void addAnimatedComponent(Animated animatedComponent) {
 		animatedComponents.add(animatedComponent);
 	}
 	
+	@Override
 	public void addCollidedComponent(Collided collidedComponent) {
 		collidedComponents.add(collidedComponent);
 	}

@@ -26,6 +26,7 @@ public class Score implements Rendered {
 	
 	// Rendered methods
 	
+	@Override
 	public void draw(Graphics gr, int renderedWidth, int renderedHeight, int basicSize) {
 		String scoreText = "Score: " + getScore();
 		gr.setColor(Color.blue);

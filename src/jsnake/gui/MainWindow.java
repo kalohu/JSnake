@@ -47,14 +47,17 @@ public class MainWindow extends JFrame implements KeyListener {
 		pack();
 	}
 
+	@Override
 	public void keyReleased(KeyEvent keyEvent) {
 		// not implemented yet
 	}
 	
+	@Override
 	public void keyPressed(KeyEvent keyEvent) {
 		controller.keyEvaluate(keyEvent.getKeyCode());
 	}
 
+	@Override
 	public void keyTyped(KeyEvent keyEvent) {
 		// not implemented yet
 	}

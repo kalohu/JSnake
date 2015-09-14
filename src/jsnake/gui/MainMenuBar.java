@@ -51,6 +51,7 @@ public class MainMenuBar extends JMenuBar implements ActionListener {
 		return gameMenu;		
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent actionEvent) {
 		if (actionEvent.getSource() == startMenuItem) {
 			game.newGame();

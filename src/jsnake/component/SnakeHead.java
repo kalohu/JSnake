@@ -41,20 +41,24 @@ public class SnakeHead implements Controlled, Rendered, Animated, Collided {
 		this.snakeTimer = snakeTimer;
 	}
 	
+	@Override
 	public void feed(int basicSize) {
 		snakeTail.addTailPiece(basicSize);
 	}
 
 	// Controlled methods
 	
+	@Override
 	public int getX() {
 		return snakePiece.getX();
 	}
 	
+	@Override
 	public int getY() {
 		return snakePiece.getY();
 	}
 
+	@Override
 	public void setDirection(int newHorizontalDirection, int newVerticalDirection) {
 		if (((this.horizontalDirection == 0 && newHorizontalDirection != 0) || (this.horizontalDirection != 0 && newHorizontalDirection == 0)) &&
 		    ((this.verticalDirection == 0 && newVerticalDirection != 0) || (this.verticalDirection != 0 && newVerticalDirection == 0))) {
@@ -65,10 +69,12 @@ public class SnakeHead implements Controlled, Rendered, Animated, Collided {
 
 	// Collided methods
 	
+	@Override
 	public void addCollisionDetector(CollisionDetector collisionDetector) {
 		this.collisionDetector = collisionDetector;
 	}
 	
+	@Override
 	public void checkCollision(ArrayList<Point> callerComponentCoords, Collided callerComponent) {
 		ArrayList<Point> snakeHeadCoords = new ArrayList<Point>();
 		snakeHeadCoords.add(new Point(snakePiece.getX(), snakePiece.getY()));
@@ -77,6 +83,7 @@ public class SnakeHead implements Controlled, Rendered, Animated, Collided {
 		}
 	}
 	
+	@Override
 	public void checkCollision(Collided collidedComponent) {
 		ArrayList<Point> snakeHeadCoords = new ArrayList<Point>();
 		snakeHeadCoords.add(new Point(snakePiece.getX(), snakePiece.getY()));
@@ -85,12 +92,14 @@ public class SnakeHead implements Controlled, Rendered, Animated, Collided {
 
 	// Rendered methods
 	
+	@Override
 	public void draw(Graphics gr, int renderedWidth, int renderedHeight, int basicSize) {
 		snakePiece.drawHead(gr);
 	}
 
 	// Animated methods
 
+	@Override
 	public void step() {
 		horizontalDirection = horizontalDirectionIntention;
 		verticalDirection = verticalDirectionIntention;

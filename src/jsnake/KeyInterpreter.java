@@ -18,6 +18,7 @@ public class KeyInterpreter implements Controller, Animated {
 	
 	// Controller methods
 	
+	@Override
 	public void keyEvaluate(int key) {
 		if (key == KeyEvent.VK_LEFT) {
 			setLeftDirection();
@@ -55,6 +56,7 @@ public class KeyInterpreter implements Controller, Animated {
 	
 	// Animated methods
 
+	@Override
 	public void step() {
 		controlledComponent.setDirection(horizontalDirection, verticalDirection);
 	}

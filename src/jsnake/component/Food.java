@@ -31,10 +31,12 @@ public class Food implements Rendered, Collided {
 
 	// Collided methods
 	
+	@Override
 	public void addCollisionDetector(CollisionDetector collisionDetector) {
 		this.collisionDetector = collisionDetector;
 	}
 	
+	@Override
 	public void checkCollision(ArrayList<Point> callerComponentCoords, Collided callerComponent) {
 		ArrayList<Point> foodCoords = new ArrayList<Point>();
 		foodCoords.add(new Point(x, y));
@@ -48,6 +50,7 @@ public class Food implements Rendered, Collided {
 		}
 	}
 	
+	@Override
 	public void checkCollision(Collided collidedComponent) {
 		ArrayList<Point> foodCoords = new ArrayList<Point>();
 		foodCoords.add(new Point(x, y));
@@ -77,6 +80,7 @@ public class Food implements Rendered, Collided {
 		this.y = y;
 	}
 
+	@Override
 	public void draw(Graphics gr, int renderedWidth, int renderedHeight, int basicSize) {
 		gr.setColor(Color.red);
 		gr.fill3DRect(x * basicSize, y * basicSize, basicSize, basicSize, true);
