@@ -30,7 +30,7 @@ public class Game {
 
 		// Graphic components
 		Score score = new Score();
-		Background background = new Background();
+		Background background = new Background(scene.getRendererSize(), scene.getBasicSize());
 		SnakeTail snakeTail = new SnakeTail(scene);
 		SnakeHead snakeHead = new SnakeHead(scene, snakeTail); // this is the object that implements the Controlled interface
 		Food food = new Food(scene, snakeHead, score);
