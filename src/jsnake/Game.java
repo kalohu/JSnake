@@ -55,15 +55,18 @@ public class Game {
 		
 		engine.addCollidedComponent(food);
 		engine.addCollidedComponent(snakeTail);
+		engine.addCollidedComponent(background);
 
 		CollisionDetector collisionDetector = new CollisionDetector();
 		snakeHead.addCollisionDetector(collisionDetector);
 		food.addCollisionDetector(collisionDetector);
 		snakeTail.addCollisionDetector(collisionDetector);
+		background.addCollisionDetector(collisionDetector);
 
 		// Add references here when it is not possible at the creating period
 		snakeHead.addSnakeTimerReference(snakeTimer);
 		snakeTail.addSnakeTimerReference(snakeTimer);
+		background.addSnakeTimerReference(snakeTimer);
 		
 		mainWindow.addController(keyInterpreter);
 		mainWindow.addRenderer(scene);
