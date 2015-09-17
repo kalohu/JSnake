@@ -3,6 +3,7 @@ package jsnake;
 import jsnake.gui.MainWindow;
 import jsnake.gui.MainMenuBar;
 import jsnake.component.Background;
+import jsnake.component.Wall;
 import jsnake.component.Food;
 import jsnake.component.Scene;
 import jsnake.component.Score;
@@ -30,7 +31,8 @@ public class Game {
 
 		// Graphic components
 		Score score = new Score();
-		Background background = new Background(scene.getRendererSize(), scene.getBasicSize());
+		Background background = new Background();
+		Wall wall = new Wall(scene.getRendererSize(), scene.getBasicSize());
 		SnakeTail snakeTail = new SnakeTail(scene);
 		SnakeHead snakeHead = new SnakeHead(scene, snakeTail); // this is the object that implements the Controlled interface
 		Food food = new Food(scene, snakeHead, score);
@@ -41,6 +43,7 @@ public class Game {
 
 		// Add components that implement the Rendered interface
 		scene.addRenderedComponent(background);
+		scene.addRenderedComponent(wall);
 		scene.addRenderedComponent(score);
 		scene.addRenderedComponent(snakeHead);
 		scene.addRenderedComponent(snakeTail);
@@ -55,18 +58,18 @@ public class Game {
 		
 		engine.addCollidedComponent(food);
 		engine.addCollidedComponent(snakeTail);
-		engine.addCollidedComponent(background);
+		engine.addCollidedComponent(wall);
 
 		CollisionDetector collisionDetector = new CollisionDetector();
 		snakeHead.addCollisionDetector(collisionDetector);
 		food.addCollisionDetector(collisionDetector);
 		snakeTail.addCollisionDetector(collisionDetector);
-		background.addCollisionDetector(collisionDetector);
+		wall.addCollisionDetector(collisionDetector);
 
 		// Add references here when it is not possible at the creating period
 		snakeHead.addSnakeTimerReference(snakeTimer);
 		snakeTail.addSnakeTimerReference(snakeTimer);
-		background.addSnakeTimerReference(snakeTimer);
+		wall.addSnakeTimerReference(snakeTimer);
 		
 		mainWindow.addController(keyInterpreter);
 		mainWindow.addRenderer(scene);
