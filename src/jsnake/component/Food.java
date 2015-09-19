@@ -6,55 +6,36 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
 
-import jsnake.CollisionDetector;
-import jsnake.component.Score;
 import jsnake.interfaces.Collided;
 import jsnake.interfaces.Rendered;
 import jsnake.interfaces.Renderer;
-import jsnake.interfaces.Controlled;
 
 public class Food implements Rendered, Collided {
-	
-	private Renderer rendererComponent;
-	private Score score;
-	private CollisionDetector collisionDetector;
 	
 	private int x;
 	private int y;
 	
-	public Food(Renderer rendererComponent, SnakeHead snakeHead, Score score) {
-		this.rendererComponent = rendererComponent;
-		this.score = score;
-
+	public Food(Renderer rendererComponent) {
 		init(rendererComponent);
 	}
 
 	// Collided methods
-	
+
 	@Override
-	public void addCollisionDetector(CollisionDetector collisionDetector) {
-		this.collisionDetector = collisionDetector;
+	public ArrayList<ArrayList<Point>> checkCollision(ArrayList<Point> callerComponentCoords, Collided callerComponent) {
+		ArrayList<Point> foodCoords = new ArrayList<Point>();
+		foodCoords.add(new Point(x, y));
+		ArrayList<ArrayList<Point>> collidedComponents = new ArrayList<ArrayList<Point>>();
+		collidedComponents.add(callerComponentCoords);
+		collidedComponents.add(foodCoords);
+		return collidedComponents;
 	}
 	
 	@Override
-	public void checkCollision(ArrayList<Point> callerComponentCoords, Collided callerComponent) {
+	public ArrayList<ArrayList<Point>> checkCollision(Collided collidedComponent) {
 		ArrayList<Point> foodCoords = new ArrayList<Point>();
 		foodCoords.add(new Point(x, y));
-		if (collisionDetector.checkCollision(callerComponentCoords, foodCoords)) {
-			if (callerComponent instanceof Controlled) {
-				int basicSize = rendererComponent.getBasicSize();
-				score.addScore();
-				init(rendererComponent);
-				((Controlled)callerComponent).feed(basicSize);
-			}
-		}
-	}
-	
-	@Override
-	public void checkCollision(Collided collidedComponent) {
-		ArrayList<Point> foodCoords = new ArrayList<Point>();
-		foodCoords.add(new Point(x, y));
-		collidedComponent.checkCollision(foodCoords, this);
+		return collidedComponent.checkCollision(foodCoords, this);
 	}
 
 	// Rendered methods

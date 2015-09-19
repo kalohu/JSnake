@@ -6,16 +6,12 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import jsnake.CollisionDetector;
-import jsnake.SnakeTimer;
 import jsnake.interfaces.Collided;
 import jsnake.interfaces.Rendered;
 
 public class Wall implements Rendered, Collided {
 
 	private ArrayList<Point> wallElements;
-	private CollisionDetector collisionDetector;
-	private SnakeTimer snakeTimer;
 	
 	public Wall(Dimension rendererSize, int basicSize) {
 		wallElements = new ArrayList<Point>();
@@ -32,27 +28,19 @@ public class Wall implements Rendered, Collided {
 		}
 	}
 
-	public void addSnakeTimerReference(SnakeTimer snakeTimer) {
-		this.snakeTimer = snakeTimer;
-	}
-
 	// Collided methods
 
 	@Override
-	public void addCollisionDetector(CollisionDetector collisionDetector) {
-		this.collisionDetector = collisionDetector;
+	public ArrayList<ArrayList<Point>> checkCollision(ArrayList<Point> callerComponentCoords, Collided callerComponent) {
+		ArrayList<ArrayList<Point>> collidedComponents = new ArrayList<ArrayList<Point>>();
+		collidedComponents.add(callerComponentCoords);
+		collidedComponents.add(wallElements);
+		return collidedComponents;
 	}
 
 	@Override
-	public void checkCollision(ArrayList<Point> callerComponentCoords, Collided callerComponent) {
-		if (collisionDetector.checkCollision(callerComponentCoords, wallElements)) {
-			snakeTimer.stopStep();
-		}
-	}
-
-	@Override
-	public void checkCollision(Collided collidedComponent) {
-		collidedComponent.checkCollision(wallElements, this);
+	public ArrayList<ArrayList<Point>> checkCollision(Collided collidedComponent) {
+		return collidedComponent.checkCollision(wallElements, this);
 	}
 
 	// Rendered methods

@@ -4,8 +4,6 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import jsnake.CollisionDetector;
-import jsnake.SnakeTimer;
 import jsnake.interfaces.Collided;
 import jsnake.interfaces.Rendered;
 import jsnake.interfaces.Renderer;
@@ -13,8 +11,6 @@ import jsnake.interfaces.Renderer;
 public class SnakeTail implements Rendered, Collided {
 
 	private ArrayList<SnakePiece> snakeTail;
-	private CollisionDetector collisionDetector;
-	private SnakeTimer snakeTimer;
 
 	public SnakeTail(Renderer rendererComponent) {
 		snakeTail = new ArrayList<SnakePiece>();
@@ -34,39 +30,31 @@ public class SnakeTail implements Rendered, Collided {
 		}
 	}
 
-	public void addSnakeTimerReference(SnakeTimer snakeTimer) {
-		this.snakeTimer = snakeTimer;
-	}
-	
 	public void addTailPiece(int basicSize) {
 		snakeTail.add(new SnakePiece(-1, -1, basicSize));
 	}
 
 	// Collided methods
-	
+		
 	@Override
-	public void addCollisionDetector(CollisionDetector collisionDetector) {
-		this.collisionDetector = collisionDetector;
-	}
-	
-	@Override
-	public void checkCollision(ArrayList<Point> callerComponentCoords, Collided callerComponent) {
+	public ArrayList<ArrayList<Point>> checkCollision(ArrayList<Point> callerComponentCoords, Collided callerComponent) {
 		ArrayList<Point> snakeTailCoords = new ArrayList<Point>();
 		for (SnakePiece snakePiece : snakeTail) {
 			snakeTailCoords.add(new Point(snakePiece.getX(), snakePiece.getY()));
 		}
-		if (collisionDetector.checkCollision(callerComponentCoords, snakeTailCoords)) {
-			snakeTimer.stopStep();
-		}
+		ArrayList<ArrayList<Point>> collidedComponents = new ArrayList<ArrayList<Point>>();
+		collidedComponents.add(callerComponentCoords);
+		collidedComponents.add(snakeTailCoords);
+		return collidedComponents;
 	}
 	
 	@Override
-	public void checkCollision(Collided collidedComponent) {
+	public ArrayList<ArrayList<Point>> checkCollision(Collided collidedComponent) {
 		ArrayList<Point> snakeTailCoords = new ArrayList<Point>();
 		for (SnakePiece snakePiece : snakeTail) {
 			snakeTailCoords.add(new Point(snakePiece.getX(), snakePiece.getY()));
 		}
-		collidedComponent.checkCollision(snakeTailCoords, this);
+		return collidedComponent.checkCollision(snakeTailCoords, this);
 	}
 
 	// Rendered methods
