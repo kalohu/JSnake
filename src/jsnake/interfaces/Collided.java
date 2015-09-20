@@ -3,9 +3,20 @@ package jsnake.interfaces;
 import java.util.ArrayList;
 import java.awt.Point;
 
+import jsnake.CollisionResolver;
+import jsnake.component.SnakeHead;
+import jsnake.component.SnakeTail;
+import jsnake.component.Food;
+import jsnake.component.Wall;
+
 public interface Collided {
 	
-	ArrayList<ArrayList<Point>> checkCollision(ArrayList<Point> callerComponentCoords, Collided callerComponent);
-	ArrayList<ArrayList<Point>> checkCollision(Collided collidedComponent);
+	public void setCollisionResolver(CollisionResolver collisionResolver);
+	void checkCollision(Collided collidedComponent);
+
+	void checkCollision(SnakeHead callerComponent, ArrayList<Point> callerComponentCoords);
+	void checkCollision(SnakeTail callerComponent, ArrayList<Point> callerComponentCoords);
+	void checkCollision(Food callerComponent, ArrayList<Point> callerComponentCoords);
+	void checkCollision(Wall callerComponent, ArrayList<Point> callerComponentCoords);
 
 }

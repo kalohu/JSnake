@@ -44,12 +44,13 @@ public class Game {
 		scene.addRenderedComponent(snakeTail);
 		scene.addRenderedComponent(food);
 		
-		CollisionDetector collisionDetector = new CollisionDetector();
-		CollisionResolver collisionResolver = new CollisionResolver();
 		// This is the object that implements the Animator interface
-		Engine engine = new Engine(collisionDetector, collisionResolver);
+		Engine engine = new Engine();
 		// This is the object that implements the Iterator interface
 		SnakeTimer snakeTimer = new SnakeTimer(100, engine);
+
+		CollisionDetector collisionDetector = new CollisionDetector();
+		CollisionResolver collisionResolver = new CollisionResolver(collisionDetector, snakeTimer, scene, snakeTail, score);
 
 		// Add components that implement the Animated interface
 		engine.addAnimatedComponent(keyInterpreter);
@@ -62,11 +63,10 @@ public class Game {
 		engine.addCollidedComponent(snakeTail);
 		engine.addCollidedComponent(wall);
 
-		collisionResolver.setRendererComponent(scene);
-		collisionResolver.setSnakeTimer(snakeTimer);
-		collisionResolver.setScore(score);
-		collisionResolver.setSnakeTail(snakeTail);
-		collisionResolver.setFood(food);
+		snakeHead.setCollisionResolver(collisionResolver);
+		snakeTail.setCollisionResolver(collisionResolver);
+		wall.setCollisionResolver(collisionResolver);
+		food.setCollisionResolver(collisionResolver);
 		
 		mainWindow.addController(keyInterpreter);
 		mainWindow.addRenderer(scene);

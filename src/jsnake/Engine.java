@@ -1,6 +1,5 @@
 package jsnake;
 
-import java.awt.Point;
 import java.util.ArrayList;
 
 import jsnake.interfaces.Animator;
@@ -13,15 +12,11 @@ public class Engine implements Animator {
 	private ArrayList<Animated> animatedComponents;
 	private ArrayList<Collided> collidedComponents;
 	private ArrayList<Controlled> controlledComponents;
-	private CollisionDetector collisionDetector;
-	private CollisionResolver collisionResolver;
 	
-	public Engine(CollisionDetector collisionDetector, CollisionResolver collisionResolver) {
+	public Engine() {
 		animatedComponents = new ArrayList<Animated>();
 		collidedComponents = new ArrayList<Collided>();
 		controlledComponents = new ArrayList<Controlled>();
-		this.collisionDetector = collisionDetector;
-		this.collisionResolver = collisionResolver;
 	}
 
 	// Animator methods
@@ -34,10 +29,7 @@ public class Engine implements Animator {
 		
 		for (Controlled controlledComponent : controlledComponents) {
 			for (Collided collidedComponent: collidedComponents) {
-				ArrayList<ArrayList<Point>> collidedComponentsCoords = ((Collided)controlledComponent).checkCollision(collidedComponent);
-				if (collisionDetector.checkCollision(collidedComponentsCoords.get(0), collidedComponentsCoords.get(1))) {
-					collisionResolver.resolveCollision((Collided)controlledComponent, collidedComponent);
-				}
+				((Collided)controlledComponent).checkCollision(collidedComponent);
 			}
 		}
 	}

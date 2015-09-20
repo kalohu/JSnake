@@ -1,52 +1,48 @@
 package jsnake;
 
+import java.awt.Point;
+import java.util.ArrayList;
+
 import jsnake.component.Wall;
+import jsnake.component.SnakeHead;
 import jsnake.component.SnakeTail;
 import jsnake.component.Food;
 import jsnake.component.Score;
-import jsnake.interfaces.Collided;
 import jsnake.interfaces.Renderer;
 
 public class CollisionResolver {
 
-	private Renderer rendererComponent;
+	private CollisionDetector collisionDetector;
 	private SnakeTimer snakeTimer;
-	private Score score;
+	private Renderer rendererComponent;
 	private SnakeTail snakeTail;
-	private Food food;
+	private Score score;
 	
-	public void setRendererComponent(Renderer rendererComponent) {
-		this.rendererComponent = rendererComponent;
-	}
-	
-	public void setSnakeTimer(SnakeTimer snakeTimer) {
+	public CollisionResolver(CollisionDetector collisionDetector, SnakeTimer snakeTimer, Renderer rendererComponent, SnakeTail snakeTail, Score score) {
+		this.collisionDetector = collisionDetector;
 		this.snakeTimer = snakeTimer;
-	}
-	
-	public void setScore(Score score) {
+		this.rendererComponent = rendererComponent;
+		this.snakeTail = snakeTail;
 		this.score = score;
 	}
 	
-	public void setSnakeTail(SnakeTail snakeTail) {
-		this.snakeTail = snakeTail;
-	}
-	
-	public void setFood(Food food) {
-		this.food = food;
-	}
-	
-	public void resolveCollision(Collided callerComponent, Collided calledComponent) {
-		if (calledComponent instanceof Wall) {
+	public void resolveCollision(SnakeHead callerComponent, Wall calledComponent, ArrayList<ArrayList<Point>> componentsCoords) {
+		if (collisionDetector.checkCollision(componentsCoords.get(0), componentsCoords.get(1))) {
 			snakeTimer.stopStep();
 		}
-		else if (calledComponent instanceof SnakeTail) {
-			snakeTimer.stopStep();
-		}
-		else if (calledComponent instanceof Food) {
+	}
+
+	public void resolveCollision(SnakeHead callerComponent, Food calledComponent, ArrayList<ArrayList<Point>> componentsCoords) {
+		if (collisionDetector.checkCollision(componentsCoords.get(0), componentsCoords.get(1))) {
+			snakeTail.addTailPiece(rendererComponent.getBasicSize());
 			score.addScore();
-			int basicSize = rendererComponent.getBasicSize();
-			snakeTail.addTailPiece(basicSize);
-			food.init(rendererComponent);
+			calledComponent.init(rendererComponent);
+		}
+	}
+
+	public void resolveCollision(SnakeHead callerComponent, SnakeTail calledComponent, ArrayList<ArrayList<Point>> componentsCoords) {
+		if (collisionDetector.checkCollision(componentsCoords.get(0), componentsCoords.get(1))) {
+			snakeTimer.stopStep();
 		}
 	}
 
