@@ -3,7 +3,7 @@ package jsnake.component;
 import javax.swing.JPanel;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.util.ArrayList;
+import java.util.List;
 
 import jsnake.interfaces.Renderer;
 import jsnake.interfaces.Rendered;
@@ -11,14 +11,13 @@ import jsnake.interfaces.Animated;
 
 public class Scene extends JPanel implements Renderer, Animated {
 	
-	private ArrayList<Rendered> renderedComponents;
+	private List<Rendered> renderedComponents;
 	
 	private int width;
 	private int height;
 	private int basicSize;
 	
 	public Scene() {
-		renderedComponents = new ArrayList<Rendered>();
 		width = 50;
 		height = 50;
 		basicSize = 15;
@@ -39,8 +38,8 @@ public class Scene extends JPanel implements Renderer, Animated {
 	// Renderer methods
 
 	@Override
-	public void addRenderedComponent(Rendered renderedComponent) {
-		renderedComponents.add(renderedComponent);
+	public void addRenderedComponents(List<Rendered> renderedComponents) {
+		this.renderedComponents = renderedComponents;
 	}
 		
 	@Override

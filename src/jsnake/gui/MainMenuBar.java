@@ -6,12 +6,10 @@ import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import jsnake.Game;
-import jsnake.interfaces.Animator;
 import jsnake.interfaces.Iterator;
 
 public class MainMenuBar extends JMenuBar implements ActionListener {
 	
-	private Animator animator;
 	private Iterator iterator;
 	private Game game;
 
@@ -63,10 +61,6 @@ public class MainMenuBar extends JMenuBar implements ActionListener {
 		else if (actionEvent.getSource() == exitMenuItem) {
 			System.exit(0);
 		}
-	}
-	
-	public void addAnimator(Animator animator) {
-		this.animator = animator;
 	}
 
 	public void addIterator(Iterator iterator) {

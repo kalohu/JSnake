@@ -1,10 +1,11 @@
 package jsnake.interfaces;
 
 import java.awt.Dimension;
+import java.util.List;
 
 public interface Renderer {
 	
-	void addRenderedComponent(Rendered renderedComponent);
+	void addRenderedComponents(List<Rendered> renderedComponents);
 	Dimension getRendererSize();
 	void setRendererSize(int width, int height);
 	int getBasicSize();

@@ -1,23 +1,16 @@
 package jsnake;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import jsnake.interfaces.Animator;
 import jsnake.interfaces.Animated;
-import jsnake.interfaces.Controlled;
 import jsnake.interfaces.Collided;
 
 public class Engine implements Animator {
 	
-	private ArrayList<Animated> animatedComponents;
-	private ArrayList<Collided> collidedComponents;
-	private ArrayList<Controlled> controlledComponents;
-	
-	public Engine() {
-		animatedComponents = new ArrayList<Animated>();
-		collidedComponents = new ArrayList<Collided>();
-		controlledComponents = new ArrayList<Controlled>();
-	}
+	private List<Animated> animatedComponents;
+	private List<Collided> collidedComponents;
+	private List<Collided> colliderComponents;
 
 	// Animator methods
 
@@ -27,26 +20,26 @@ public class Engine implements Animator {
 			animatedComponent.step();
 		}
 		
-		for (Controlled controlledComponent : controlledComponents) {
+		for (Collided colliderComponent : colliderComponents) {
 			for (Collided collidedComponent: collidedComponents) {
-				((Collided)controlledComponent).checkCollision(collidedComponent);
+				colliderComponent.checkCollision(collidedComponent);
 			}
 		}
 	}
 
 	@Override
-	public void addControlledComponent(Controlled controlledComponent) {
-		controlledComponents.add(controlledComponent);
+	public void addColliderComponents(List<Collided> colliderComponents) {
+		this.colliderComponents = colliderComponents;
 	}
 
 	@Override
-	public void addAnimatedComponent(Animated animatedComponent) {
-		animatedComponents.add(animatedComponent);
+	public void addAnimatedComponents(List<Animated> animatedComponents) {
+		this.animatedComponents = animatedComponents;
 	}
 	
 	@Override
-	public void addCollidedComponent(Collided collidedComponent) {
-		collidedComponents.add(collidedComponent);
+	public void addCollidedComponents(List<Collided> collidedComponents) {
+		this.collidedComponents = collidedComponents;
 	}
 
 }
