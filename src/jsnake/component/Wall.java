@@ -6,14 +6,14 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import jsnake.CollisionResolver;
+import jsnake.CollisionDetector;
 import jsnake.interfaces.Collided;
 import jsnake.interfaces.Rendered;
 
 public class Wall implements Rendered, Collided {
 
 	private ArrayList<Point> wallElements;
-	private CollisionResolver collisionResolver;
+	private CollisionDetector collisionDetector;
 	
 	public Wall(Dimension rendererSize, int basicSize) {
 		wallElements = new ArrayList<Point>();
@@ -33,8 +33,8 @@ public class Wall implements Rendered, Collided {
 	// Collided methods
 
 	@Override
-	public void setCollisionResolver(CollisionResolver collisionResolver) {
-		this.collisionResolver = collisionResolver;
+	public void setCollisionDetector(CollisionDetector collisionDetector) {
+		this.collisionDetector = collisionDetector;
 	}
 
 	@Override
@@ -42,14 +42,19 @@ public class Wall implements Rendered, Collided {
 		ArrayList<ArrayList<Point>> collidedComponents = new ArrayList<ArrayList<Point>>();
 		collidedComponents.add(callerComponentCoords);
 		collidedComponents.add(wallElements);
-		collisionResolver.resolveCollision(callerComponent, this, collidedComponents);
+		collisionDetector.detectCollision(callerComponent, this, collidedComponents);
 	}
 
 	@Override
 	public void checkCollision(SnakeTail callerComponent, ArrayList<Point> callerComponentCoords) {}
 
 	@Override
-	public void checkCollision(Food callerComponent, ArrayList<Point> callerComponentCoords) {}
+	public void checkCollision(Food callerComponent, ArrayList<Point> callerComponentCoords) {
+		ArrayList<ArrayList<Point>> collidedComponents = new ArrayList<ArrayList<Point>>();
+		collidedComponents.add(callerComponentCoords);
+		collidedComponents.add(wallElements);
+		collisionDetector.detectCollision(callerComponent, this, collidedComponents);
+	}
 
 	@Override
 	public void checkCollision(Wall callerComponent, ArrayList<Point> callerComponentCoords) {}

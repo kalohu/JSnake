@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import jsnake.CollisionResolver;
+import jsnake.CollisionDetector;
 import jsnake.interfaces.Collided;
 import jsnake.interfaces.Rendered;
 import jsnake.interfaces.Renderer;
@@ -12,7 +12,7 @@ import jsnake.interfaces.Renderer;
 public class SnakeTail implements Rendered, Collided {
 
 	private ArrayList<SnakePiece> snakeTail;
-	private CollisionResolver collisionResolver;
+	private CollisionDetector collisionDetector;
 
 	public SnakeTail(Renderer rendererComponent) {
 		snakeTail = new ArrayList<SnakePiece>();
@@ -39,8 +39,8 @@ public class SnakeTail implements Rendered, Collided {
 	// Collided methods
 
 	@Override
-	public void setCollisionResolver(CollisionResolver collisionResolver) {
-		this.collisionResolver = collisionResolver;
+	public void setCollisionDetector(CollisionDetector collisionDetector) {
+		this.collisionDetector = collisionDetector;
 	}
 
 	@Override
@@ -52,14 +52,23 @@ public class SnakeTail implements Rendered, Collided {
 		ArrayList<ArrayList<Point>> collidedComponents = new ArrayList<ArrayList<Point>>();
 		collidedComponents.add(callerComponentCoords);
 		collidedComponents.add(snakeTailCoords);
-		collisionResolver.resolveCollision(callerComponent, this, collidedComponents);
+		collisionDetector.detectCollision(callerComponent, this, collidedComponents);
 	}
 
 	@Override
 	public void checkCollision(SnakeTail callerComponent, ArrayList<Point> callerComponentCoords) {}
 	
 	@Override
-	public void checkCollision(Food callerComponent, ArrayList<Point> callerComponentCoords) {}
+	public void checkCollision(Food callerComponent, ArrayList<Point> callerComponentCoords) {
+		ArrayList<Point> snakeTailCoords = new ArrayList<Point>();
+		for (SnakePiece snakePiece : snakeTail) {
+			snakeTailCoords.add(new Point(snakePiece.getX(), snakePiece.getY()));
+		}
+		ArrayList<ArrayList<Point>> collidedComponents = new ArrayList<ArrayList<Point>>();
+		collidedComponents.add(callerComponentCoords);
+		collidedComponents.add(snakeTailCoords);
+		collisionDetector.detectCollision(callerComponent, this, collidedComponents);
+	}
 
 	@Override
 	public void checkCollision(Wall callerComponent, ArrayList<Point> callerComponentCoords) {}

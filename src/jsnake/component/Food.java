@@ -4,28 +4,33 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Random;
 
-import jsnake.CollisionResolver;
+import jsnake.CollisionDetector;
 import jsnake.interfaces.Collided;
 import jsnake.interfaces.Rendered;
 import jsnake.interfaces.Renderer;
 
 public class Food implements Rendered, Collided {
 	
-	private CollisionResolver collisionResolver;
+	private CollisionDetector collisionDetector;
 	private int x;
 	private int y;
 	
 	public Food(Renderer rendererComponent) {
-		init(rendererComponent);
+		x = 1;
+		y = 5;
+	}
+
+	public void setPosition(int x, int y) {
+		this.x = x;
+		this.y = y;
 	}
 
 	// Collided methods
 
 	@Override
-	public void setCollisionResolver(CollisionResolver collisionResolver) {
-		this.collisionResolver = collisionResolver;
+	public void setCollisionDetector(CollisionDetector collisionDetector) {
+		this.collisionDetector = collisionDetector;
 	}
 
 	@Override
@@ -35,14 +40,21 @@ public class Food implements Rendered, Collided {
 		ArrayList<ArrayList<Point>> collidedComponents = new ArrayList<ArrayList<Point>>();
 		collidedComponents.add(callerComponentCoords);
 		collidedComponents.add(foodCoords);
-		collisionResolver.resolveCollision(callerComponent, this, collidedComponents);
+		collisionDetector.detectCollision(callerComponent, this, collidedComponents);
 	}
 
 	@Override
 	public void checkCollision(SnakeTail callerComponent, ArrayList<Point> callerComponentCoords) {}
 	
 	@Override
-	public void checkCollision(Food callerComponent, ArrayList<Point> callerComponentCoords) {}
+	public void checkCollision(Food callerComponent, ArrayList<Point> callerComponentCoords) {
+		ArrayList<Point> foodCoords = new ArrayList<Point>();
+		foodCoords.add(new Point(x, y));
+		ArrayList<ArrayList<Point>> collidedComponents = new ArrayList<ArrayList<Point>>();
+		collidedComponents.add(callerComponentCoords);
+		collidedComponents.add(foodCoords);
+		collisionDetector.detectCollision(callerComponent, this, collidedComponents);
+	}
 
 	@Override
 	public void checkCollision(Wall callerComponent, ArrayList<Point> callerComponentCoords) {}
@@ -56,27 +68,6 @@ public class Food implements Rendered, Collided {
 
 	// Rendered methods
 	
-	public void init(Renderer rendererComponent) {
-		int width = (int) rendererComponent.getRendererSize().getWidth();
-		int height = (int) rendererComponent.getRendererSize().getHeight();
-
-		int x;
-		int y;
-		
-		Random rand = new Random();
-
-		x = rand.nextInt(width - 3) + 1;
-		y = rand.nextInt(height - 7) + 5;
-		
-		while (x == this.x && y == this.y) {
-			x = rand.nextInt(width - 3) + 1;
-			y = rand.nextInt(height - 7) + 5;
-		}
-		
-		this.x = x;
-		this.y = y;
-	}
-
 	@Override
 	public void draw(Graphics gr, int renderedWidth, int renderedHeight, int basicSize) {
 		gr.setColor(Color.red);

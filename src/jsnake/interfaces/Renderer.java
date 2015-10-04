@@ -1,6 +1,7 @@
 package jsnake.interfaces;
 
 import java.awt.Dimension;
+import java.awt.Point;
 import java.util.List;
 
 public interface Renderer {
@@ -10,5 +11,6 @@ public interface Renderer {
 	void setRendererSize(int width, int height);
 	int getBasicSize();
 	void setBasicSize(int size);
+	public Point generatePosition();
 
 }

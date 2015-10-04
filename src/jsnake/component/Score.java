@@ -20,8 +20,8 @@ public class Score implements Rendered {
 		this.score = score;
 	}
 	
-	public void addScore() {
-		score++;
+	public void addScore(int score) {
+		this.score += score;
 	}
 	
 	// Rendered methods

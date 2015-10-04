@@ -1,9 +1,11 @@
 package jsnake.component;
 
 import javax.swing.JPanel;
+import java.awt.Point;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.List;
+import java.util.Random;
 
 import jsnake.interfaces.Renderer;
 import jsnake.interfaces.Rendered;
@@ -28,6 +30,15 @@ public class Scene extends JPanel implements Renderer, Animated {
 		for (Rendered renderedComponent : renderedComponents) {
 			renderedComponent.draw(gr, width, height, basicSize);
 		}
+	}
+
+	public Point generatePosition() {
+		Random rand = new Random();
+
+		int x = rand.nextInt(width);
+		int y = rand.nextInt(height - 4) + 4;
+
+		return new Point(x, y);
 	}
 
 	@Override
